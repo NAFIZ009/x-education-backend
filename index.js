@@ -2,6 +2,7 @@
 //module importing
 const express = require('express');
 const cors = require('cors');
+require('dotenv').config()
 
 //creating a new server
 const app = express();
