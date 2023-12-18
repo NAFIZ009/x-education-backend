@@ -1,10 +1,25 @@
+//root file
+//module importing
 const express = require('express');
+const cors = require('cors');
+
+//creating a new server
 const app = express();
 
-app.get('/', (req, res) => {
+// Using cors middleware
+app.use(cors());
+
+//test
+app.get('/test', (req, res) => {
     res.send("hello world!");
 });
 
-app.listen(8080,()=>{
-    console.log("listening on port 8080");
+//'/api' router
+app.use('/api',require('./api/api.js'));
+
+//port of the server
+const PORT = process.env.PORT || 8080;
+
+app.listen(PORT,()=>{
+    console.log("listening on port ",PORT);
 });
