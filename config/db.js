@@ -10,8 +10,23 @@ const client = new MongoClient(uri, {
     version: ServerApiVersion.v1,
     strict: true,
     deprecationErrors: true,
-  }
+  },
+  // Add connection pooling configurations
+  maxPoolSize: 15, 
+  minPoolSize: 5, 
+  connectTimeoutMS: 30000
 });
 
-module.exports = client;
+//connecting to the mongodb
+(async()=>{
+    await client.connect((err) => {
+        if (err) {
+            console.error('Error connecting to MongoDB:', err);
+            return;
+        }
+        console.log('Successfully connected to MongoDB!');
+    });
+})();
 
+// Export the connected client to other files
+module.exports = client;

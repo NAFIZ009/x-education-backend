@@ -9,6 +9,8 @@ const app = express();
 
 // Using cors middleware
 app.use(cors());
+//for parsing
+app.use(express.json());
 
 //test
 app.get('/test', (req, res) => {

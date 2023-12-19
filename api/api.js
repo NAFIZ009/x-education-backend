@@ -8,6 +8,7 @@ api.get('/test', (req, res) => {
     res.send("hello api!");
 });
 
-
+//api for create course
+api.post('/course',require('./routes/create-course'));
 
 module.exports =api;
