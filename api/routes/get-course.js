@@ -3,13 +3,23 @@ const { ObjectId } = require('mongodb');
 const client = require('../../config/db');
 
 //get course list function
-module.exports= async (req,res)=>{
+module.exports= async (req,res,updatedDataId)=>{
     try{
         //mongodb operations
         const database = client.db("x-education");
         const course = database.collection("course");
+
+        //if the function is called from the update route then this segment will run
+        if(updatedDataId)
+        {
+            //getting specified course
+            const id = { _id:new ObjectId(updatedDataId) };
+            const courseInfo = await course.findOne(id);
+            return courseInfo;
+        }
+
         //check for course id
-        if(req.query.id){
+        if(req.query.id ){
             //getting specified course
             const id = { _id:new ObjectId(req.query.id) };
             const courseInfo = await course.findOne(id);
