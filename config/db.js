@@ -18,15 +18,16 @@ const client = new MongoClient(uri, {
 });
 
 //connecting to the mongodb
-(async()=>{
-    await client.connect((err) => {
-        if (err) {
-            console.error('Error connecting to MongoDB:', err);
-            return;
-        }
-        console.log('Successfully connected to MongoDB!');
-    });
-})();
+const connect=async ()=>{
+    try {
+      await client.connect();
+      console.log('Connected to MongoDB');
+    } catch (error) {
+      console.error('Error connecting to MongoDB:', error);
+    }
+}
+//connecting the mongodb in the start of the server and using it to the whole server
+connect();
 
 // Export the connected client to other files
 module.exports = client;

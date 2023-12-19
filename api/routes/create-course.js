@@ -24,8 +24,5 @@ module.exports= async (req,res)=>{
             status:"error",
             message:"The course cannot be added"
         });
-    }finally{
-        //close the connection
-        client.close();
     }
 }
