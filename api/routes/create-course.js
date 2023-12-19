@@ -22,7 +22,7 @@ module.exports= async (req,res)=>{
         //if an error occurred
         res.status(404).send({
             status:"error",
-            message:"The course cannot be added"
+            message:"server error"
         });
     }
 }

@@ -11,7 +11,7 @@ const getCourse=require('../routes/get-course');
     ....
  }
 */
-//get course list function
+//update course function
 module.exports= async (req,res)=>{
     const data=req.body;
     try{
@@ -20,6 +20,7 @@ module.exports= async (req,res)=>{
         const course = database.collection("course");
         //getting specified course
         const id = { _id:new ObjectId(data._id) };
+        //getting only the updated data without the course id
         const { _id, ...givenData } = data;
         //setting the updated data
         const updatedData={
