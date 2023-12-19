@@ -11,6 +11,7 @@ const getCourse=require('../routes/get-course');
     ....
  }
 */
+
 //update course function
 module.exports= async (req,res)=>{
     const data=req.body;
@@ -34,7 +35,7 @@ module.exports= async (req,res)=>{
         //if course is updated
         if(courseInfo.modifiedCount>0)
         {
-            const updatedCourse=await getCourse(null,null,_id);
+            const updatedCourse=await getCourse({updatedDataId:_id});
             //sending the updated course
             res.send({
             status:"Success",

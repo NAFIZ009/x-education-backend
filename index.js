@@ -50,30 +50,30 @@ app.post('/admin/login',async (req, res) => {
     const admin=await adminInfo.findOne({username});
   
     if (!admin) {
-      return res.status(401).json({ message: 'Invalid username' });
+      return res.status(401).json({status:'Unsuccessful', message: 'Invalid username' });
     }
     //check password
     bcrypt.compare(password, admin.hash, (err, result) => {
         if (err) {
           console.error('Error comparing passwords:', err);
-          return res.status(401).json({ message: 'server error' });
+          return res.status(401).json({status:'Unsuccessful', message: 'server error' });
         }
       
         if (result) {
-          console.log('Password is correct!');
+            console.log('Password is correct!');
+            // Generate JWT token
+            const token = jwt.sign({ username }, process.env.SECRET_KEY, { expiresIn: '1h' });
+        
+            // Set the token as a cookie in the response
+            res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 }); // Expires in 1 hour (in milliseconds)
+        
+            // Respond with the token (you might also include additional user data in the response)
+            res.json({status:"successfully logged in", token });
         } else {
-          console.log('Password is incorrect!');
-          return res.status(401).json({ message: 'Invalid password' });
+            console.log('Password is incorrect!');
+            return res.status(401).json({status:'Unsuccessful', message: 'Invalid password' });
         }
     });
-    // // Generate JWT token
-    const token = jwt.sign({ username }, process.env.SECRET_KEY, { expiresIn: '1h' });
-  
-    // Set the token as a cookie in the response
-    res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 }); // Expires in 1 hour (in milliseconds)
-  
-    // Respond with the token (you might also include additional user data in the response)
-    res.json({status:"successfully logged in", token });
 });
 
 //'/api' router
