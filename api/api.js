@@ -18,6 +18,6 @@ api.get('/course',require('./routes/get-course'));
 api.put('/course',require('./routes/update-course'));
 
 //api for delete courses
-api.get('/course',require('./routes/get-course'));
+api.delete('/course',require('./routes/delete-course'));
 
 module.exports =api;
